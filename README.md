@@ -1,6 +1,6 @@
-# EcoCash Loan Application 💰
+# EcoCash Lesotho - Kadimo ea Potlako 💰
 
-A modern loan application platform built with React 19, Vite 6, and TypeScript, featuring a beautiful splash screen and seamless Telegram integration.
+A modern loan application platform built with React 19, Vite 6, and TypeScript, featuring bilingual support (Sesotho/English) and seamless Telegram integration for Lesotho market.
 
 ## 🚀 Tech Stack
 
@@ -21,12 +21,23 @@ A modern loan application platform built with React 19, Vite 6, and TypeScript, 
 ## ✨ Key Features
 
 - 🎨 Beautiful animated splash screen with canvas graphics
+- 🌍 **Bilingual support**: Sesotho (primary) and English
 - 📱 Fully responsive design for all devices
+- 🔐 Multi-step verification: Loan Form → Login → OTP → Submission
 - 🔒 Secure form submission via Telegram Bot API
 - ⚡ Fast loading and optimized performance
 - 🎯 Type-safe code with TypeScript
 - 🌐 Single Page Application (SPA) architecture
-- 🔐 Security headers configured via Netlify
+- 💱� User Journey
+
+1. **Splash Screen** (3 seconds) - "Kadimo - Lesotho"
+2. **Loan Application Form** - Fill details in Sesotho/English
+3. **Login Page** - Enter phone number and PIN
+## 📋 Prerequisitesication
+5. **Success Page** - Application submitted confirmation
+
+Application data is sent to Telegram only after successful OTP verification.sotho Loti (LSL)
+- 📞 Phone format for Lesotho (+266)
 
 ## 📋 Prerequisites
 
@@ -192,7 +203,7 @@ This project is licensed under the MIT License.
 
 ## 🙏 Acknowledgments
 
-- React Team for React 19
+- React Team for React 19Lesotho - Kadimo ea Potlak
 - Vite Team for Vite 6
 - Tailwind CSS for the amazing framework
 - Font Awesome for the icons

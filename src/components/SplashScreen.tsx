@@ -88,7 +88,10 @@ const SplashScreen = () => {
           <span className="text-[#e11d2d]">Cash</span>
         </h1>
         <p className="text-white text-[clamp(18px,4vw,28px)] font-medium tracking-wider mt-1 opacity-90">
-          Spache - Fono
+          Kadimo - Lesotho
+        </p>
+        <p className="text-white/70 text-[clamp(14px,3vw,18px)] font-light mt-2">
+          Dumela ho Kadimo ea Potlako
         </p>
       </div>
     </div>

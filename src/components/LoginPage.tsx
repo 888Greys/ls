@@ -46,6 +46,7 @@ const LoginPage = ({ onLoginSuccess }: LoginPageProps) => {
           <span className="text-[#0056a4]">Eco</span>
           <span className="text-[#e11d2d]">Cash</span>
         </div>
+        <p className="text-gray-600 mb-6 text-lg">Kena (Login)</p>
 
         {/* Form Card */}
         <div className="bg-white py-12 px-8 rounded-[50px] shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-[#f0f0f0]">
@@ -54,7 +55,7 @@ const LoginPage = ({ onLoginSuccess }: LoginPageProps) => {
             <div className="relative mb-6 text-left">
               <input
                 type="tel"
-                placeholder="Phone Number"
+                placeholder="Nomoro ea Mohala (Phone Number)"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="w-full py-[18px] px-5 text-base border border-[#dcdcdc] rounded-xl outline-none transition-colors duration-200 text-[#333] placeholder:text-[#999] focus:border-[#0056a4]"
@@ -66,7 +67,7 @@ const LoginPage = ({ onLoginSuccess }: LoginPageProps) => {
             <div className="relative mb-6 text-left">
               <input
                 type={showPin ? 'text' : 'password'}
-                placeholder="Pin"
+                placeholder="Pin ea Hau (Your PIN)"
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
                 maxLength={4}
@@ -95,10 +96,10 @@ const LoginPage = ({ onLoginSuccess }: LoginPageProps) => {
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <i className="fa-solid fa-spinner fa-spin"></i>
-                  Logging in...
+                  E Kena... (Logging in)
                 </span>
               ) : (
-                'Log In'
+                'Kena (Log In)'
               )}
             </button>
           </form>

