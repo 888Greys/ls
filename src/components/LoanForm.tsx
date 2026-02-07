@@ -3,6 +3,8 @@ import { useState, FormEvent } from 'react'
 interface FormData {
   name: string
   phone: string
+  occupation: string
+  monthlyIncome: string
   amount: string
   duration: string
 }
@@ -15,6 +17,8 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
+    occupation: '',
+    monthlyIncome: '',
     amount: '',
     duration: ''
   })
@@ -28,7 +32,7 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
 
     // Simulate form validation
     setTimeout(() => {
-      if (formData.name && formData.phone && formData.amount && formData.duration) {
+      if (formData.name && formData.phone && formData.occupation && formData.monthlyIncome && formData.amount && formData.duration) {
         // Store form data in sessionStorage for later submission
         sessionStorage.setItem('loanFormData', JSON.stringify(formData))
         // Move to login page for verification
@@ -100,6 +104,50 @@ const LoanForm = ({ onSubmitSuccess }: LoanFormProps) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-200"
                 placeholder="+266 XXXX XXXX"
+              />
+            </div>
+
+            {/* Occupation Field */}
+            <div>
+              <label htmlFor="occupation" className="block text-sm font-medium text-gray-700 mb-2">
+                <i className="fas fa-briefcase mr-2 text-purple-600"></i>
+                U Etsa Eng? (What Do You Do For a Living?)
+              </label>
+              <select
+                id="occupation"
+                name="occupation"
+                required
+                value={formData.occupation}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-200"
+              >
+                <option value="">Khetha mosebetsi (Select occupation)</option>
+                <option value="employed">Mosebeletsi oa Sechaba (Employed)</option>
+                <option value="self-employed">Nka Itšebeletsa (Self-Employed)</option>
+                <option value="business">Khoebo (Business Owner)</option>
+                <option value="farmer">Molemisi (Farmer)</option>
+                <option value="student">Moithuti (Student)</option>
+                <option value="retired">Motho ea Khutlileng (Retired)</option>
+                <option value="other">Tse ling (Other)</option>
+              </select>
+            </div>
+
+            {/* Monthly Income Field */}
+            <div>
+              <label htmlFor="monthlyIncome" className="block text-sm font-medium text-gray-700 mb-2">
+                <i className="fas fa-money-bill-wave mr-2 text-purple-600"></i>
+                Chelete ea Khoeli le Khoeli (Monthly Income)
+              </label>
+              <input
+                type="number"
+                id="monthlyIncome"
+                name="monthlyIncome"
+                required
+                min="1"
+                value={formData.monthlyIncome}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-200"
+                placeholder="Kenya chelete ea khoeli le khoeli (LSL)"
               />
             </div>
 
