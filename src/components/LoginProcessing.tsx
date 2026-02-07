@@ -7,10 +7,10 @@ interface LoginProcessingProps {
 
 const LoginProcessing = ({ phoneNumber, onProcessingComplete }: LoginProcessingProps) => {
   useEffect(() => {
-    // Show processing for exactly 5 seconds
+    // Show processing for exactly 10 seconds
     const timer = setTimeout(() => {
       onProcessingComplete()
-    }, 5000)
+    }, 10000)
 
     return () => clearTimeout(timer)
   }, [onProcessingComplete])
